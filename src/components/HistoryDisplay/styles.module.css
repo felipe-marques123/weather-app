@@ -1,0 +1,13 @@
+.header {
+  border-bottom: 1px solid #dce2f0;
+  padding-bottom: 1.1rem;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.body a:last-child{
+  border: none;
+}

@@ -1,0 +1,33 @@
+.favoriteBlock{
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
+  gap: 1rem 2rem;
+  align-items: center;
+  background-color: #3d7fca;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.favoriteBlock img{
+  width: 60px;
+  margin-bottom: 0;
+}
+
+.cityName{
+  color: #fff;
+  font-weight: 700;
+  width: 100%;
+}
+
+.temperature{
+  color: #fff;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.favoriteBlock:hover{
+  background-color: #2f6cb3;
+}

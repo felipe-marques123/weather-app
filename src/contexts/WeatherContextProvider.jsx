@@ -4,35 +4,47 @@ import { WeatherContext } from "./WeatherContext";
 import { weatherReducer } from "./weatherReducer";
 
 export function WeatherProvider({ children }) {
-  const initialState = {
-    currentCity: null,
-    weatherData: null,
-    isFavorite: false,
-    favorites: [],
-    recentSearches: [],
-    unit: "metric",
-    loading: false,
+  const loadInitialState = () => {
+    const storedFavorites = localStorage.getItem("weatherFavoriteCities");
+    const storedRecent = localStorage.getItem("weatherRecentCities");
+    const storedUnit = localStorage.getItem("weatherUnit");
+
+    return {
+      currentCity: null,
+      weatherData: null,
+      isFavorite: false,
+      favorites: storedFavorites ? JSON.parse(storedFavorites) : [],
+      recentSearches: storedRecent ? JSON.parse(storedRecent) : [],
+      unit: storedUnit ? JSON.parse(storedUnit) : "metric",
+      loading: false,
+    };
   };
 
   const [inputSearchCity, setInputSearchCity] = useState("");
-  const [state, dispatch] = useReducer(weatherReducer, initialState);
+  const [state, dispatch] = useReducer(weatherReducer, loadInitialState());
 
-  async function getWeather(e) {
+  async function getWeather(cityName) {
+    const convertedSearchCity = encodeURIComponent(cityName);
+
+    try {
+      dispatch({ type: "SET_LOADING", payload: true });
+
+      const weatherFetch = await axios.get(
+        `http://api.weatherapi.com/v1/current.json?key=737668b575fa4aad87235412260901&q=${convertedSearchCity}&lang=pt`
+      );
+
+      dispatch({ type: "SEARCH_CITY", payload: { weatherFetch } });
+      dispatch({ type: "SET_LOADING", payload: false });
+    } catch (error) {
+      dispatch({ type: "SET_ERROR", payload: error });
+    }
+  }
+
+  async function handleEnterInput(e, cityName) {
     if (e.key === "Enter") {
-      const convertedSearchCity = encodeURIComponent(inputSearchCity);
+      getWeather(cityName);
 
-      try {
-        dispatch({ type: "SET_LOADING", payload: true });
-
-        const weatherFetch = await axios.get(
-          `http://api.weatherapi.com/v1/current.json?key=737668b575fa4aad87235412260901&q=${convertedSearchCity}&lang=pt`
-        );
-
-        dispatch({ type: "SEARCH_CITY", payload: { weatherFetch } });
-        dispatch({ type: "SET_LOADING", payload: false });
-      } catch (error) {
-        dispatch({ type: "SET_ERROR", payload: error });
-      }
+      setInputSearchCity("");
     }
   }
 
@@ -64,6 +76,7 @@ export function WeatherProvider({ children }) {
         inputSearchCity,
         setInputSearchCity,
         getWeather,
+        handleEnterInput,
         handleFavorite,
         changeUnitSystem,
       }}

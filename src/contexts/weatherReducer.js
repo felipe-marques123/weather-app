@@ -3,16 +3,19 @@ export function weatherReducer(state, actions) {
     case "SEARCH_CITY": {
       const newSearch = actions.payload.weatherFetch;
       const newRecentSearchs = [
-        ...state.recentSearches,
         newSearch.data.location.name,
+        ...state.recentSearches,
       ];
 
       const limitedRecentSearchs =
         newRecentSearchs.length > 3
-          ? newRecentSearchs.slice(1)
+          ? newRecentSearchs.slice(0, 3)
           : newRecentSearchs;
 
-      console.log(state);
+      localStorage.setItem(
+        "weatherRecentCities",
+        JSON.stringify(limitedRecentSearchs)
+      );
 
       return {
         ...state,
@@ -27,8 +30,13 @@ export function weatherReducer(state, actions) {
 
       const limitedFavoriteCities =
         newFavoriteCities.length > 3
-          ? newFavoriteCities.slice(1)
+          ? newFavoriteCities.slice(0, 3)
           : newFavoriteCities;
+
+      localStorage.setItem(
+        "weatherFavoriteCities",
+        JSON.stringify(limitedFavoriteCities)
+      );
 
       return {
         ...state,
@@ -37,15 +45,24 @@ export function weatherReducer(state, actions) {
       };
     }
     case "REMOVE_FAVORITE": {
+      const updatedFavorites = state.favorites.filter(
+        (favorite) => favorite !== actions.payload
+      );
+
+      localStorage.setItem(
+        "weatherFavoriteCities",
+        JSON.stringify(updatedFavorites)
+      );
+
       return {
         ...state,
-        favorites: state.favorites.filter(
-          (favorite) => favorite !== actions.payload
-        ),
+        favorites: updatedFavorites,
         isFavorite: false,
       };
     }
     case "CHANGE_UNIT": {
+      localStorage.setItem("weatherUnit", JSON.stringify(actions.payload));
+
       return {
         ...state,
         unit: actions.payload,
@@ -61,6 +78,14 @@ export function weatherReducer(state, actions) {
       return {
         ...state,
         error: actions.payload,
+      };
+    }
+    case "LOAD_FROM_STORAGE": {
+      return {
+        ...state,
+        favorites: actions.payload.favorites || [],
+        recentSearches: actions.payload.recentSearches || [],
+        unit: actions.payload.unit || "metric",
       };
     }
   }

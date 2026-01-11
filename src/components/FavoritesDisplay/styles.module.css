@@ -1,0 +1,38 @@
+.header {
+  border-bottom: 1px solid #dce2f0;
+  padding-bottom: 1.1rem;
+}
+
+.body {
+  padding: 2.5rem 0 0.5rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Para scroll suave em mobile */
+}
+
+.bodySlider {
+  display: flex;
+  gap: 2rem;
+  width: fit-content;
+  padding-bottom: 0.5rem; /* Espaço para a barra de scroll */
+}
+
+/* Opcional: estilizar a barra de scroll */
+.body::-webkit-scrollbar {
+  height: 8px;
+}
+
+.body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
