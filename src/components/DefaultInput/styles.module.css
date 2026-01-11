@@ -1,0 +1,25 @@
+.inputArea{
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.inputArea span{
+  padding-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+}
+
+.inputArea input{
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  color: #111;
+  width: 100%;
+}
+
+.inputArea input:focus-visible{
+  outline: none;
+}

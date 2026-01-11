@@ -1,0 +1,51 @@
+.header{
+  border-bottom: 1px solid #dce2f0;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  position: relative;
+}
+
+.header h1{
+  margin-bottom: 4px;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.header button{
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-60%);
+  cursor: pointer;
+}
+
+.header button svg{
+  fill: #dd5055;
+  font-size: 38px;
+}
+
+.searchDate{
+  color: #56637f;
+}
+
+.body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 3rem 0;
+  border-bottom: 1px solid #dce2f0;
+}
+
+.conditionText{
+  font-size: 17px;
+  font-weight: 500;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.temperature{
+  font-size: 64px;
+  font-weight: 700;
+}
