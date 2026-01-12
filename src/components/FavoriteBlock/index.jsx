@@ -15,7 +15,7 @@ export function FavoriteBlock({ name }) {
     async function fetchWeather() {
       try {
         const response = await axios.get(
-          `http://api.weatherapi.com/v1/current.json?key=737668b575fa4aad87235412260901&q=${encodeURIComponent(
+          `https://api.weatherapi.com/v1/current.json?key=737668b575fa4aad87235412260901&q=${encodeURIComponent(
             name
           )}&lang=pt`
         );

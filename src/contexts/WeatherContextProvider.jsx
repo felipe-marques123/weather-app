@@ -30,7 +30,7 @@ export function WeatherProvider({ children }) {
       dispatch({ type: "SET_LOADING", payload: true });
 
       const weatherFetch = await axios.get(
-        `http://api.weatherapi.com/v1/current.json?key=737668b575fa4aad87235412260901&q=${convertedSearchCity}&lang=pt`
+        `https://api.weatherapi.com/v1/current.json?key=737668b575fa4aad87235412260901&q=${convertedSearchCity}&lang=pt`
       );
 
       dispatch({ type: "SEARCH_CITY", payload: { weatherFetch } });
